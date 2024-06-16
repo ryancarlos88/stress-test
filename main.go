@@ -66,7 +66,14 @@ func performStressTest(url string, numRequests int, concurrency int) {
 
 		}
 	}
-	fmt.Printf("Stress test took us %.2f seconds with results [status code : number of results] %v\n", time.Since(timer).Seconds(), out)
+	fmt.Printf("\nStress test took us %.2f seconds with the following results\n\n", time.Since(timer).Seconds())
+	fmt.Printf("Number of requests with status code 200 : %d\n\n", out[200])
+	fmt.Printf("Here are all the %d different status codes we got for all %d requets:\n\n", len(out), numRequests)
+	fmt.Printf("Status Code | Occurences\n")
+	for k, v := range out {
+		fmt.Printf("    %d     |     %d\n", k, v)
+	}
+	fmt.Println()
 }
 
 func performRequest(url string, wg *sync.WaitGroup) int {
